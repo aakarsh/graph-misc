@@ -49,13 +49,14 @@ public:
 
 
 class graph {
-
+public:
+  int nedges;
+  int nvertices;
 private:  
   int size;
   graph_store type;
   vector<node*> nodes;  
-  int nedges;
-  int nvertices;
+
 public:
   graph(int n,graph_store st): size(n), type(st) {
     switch(st){
@@ -154,54 +155,23 @@ public:
 };
 
 
-
-void compute_reachablity() {
-
-  vector<int> inputs;
-  int input;
-  int nvertices;
-  int nedges;
-
-
-  cin>>nvertices;
-  cin>>nedges;
-  
-  if(debug) {
-    cout<<"Number Verticies:"<< nvertices<<endl;
-    cout<<"Number of Edges :"<< nedges <<endl; 
-  }
-  
-  for(int i = 0 ; i < nedges;  i++ ) {
-    cin>>input;
-    inputs.push_back(input);
-    cin>>input;
-    inputs.push_back(input);
-  }
-
+void compute_reachability()
+{
+  graph* g = graph::parse_graph();
   int a,b;  
   cin>>a;
   cin>>b;
 
-  nvertices++;
-  graph g(nvertices,adjacency_list);
-
-  for(int i = 0; i < nvertices; i+=2) {
+  if(a < g->nvertices && b < g->nvertices) {
+    if(debug) 
+      cout<<"Reachable a->b :"<<a-1<<"->"<<b-1<<endl;
     
-    if(debug)
-      cout<<"Adding edge ("<<inputs[i]<<","<<inputs[i+1]<<")"<<endl;
+    cout<<g->reachable(a-1,b-1)<<endl;
     
-    g.add_mutual_edge(inputs[i],inputs[i+1]);
-  }  
-  
-  if(a < nvertices && b < nvertices) {
-    if(debug)
-      cout<<"Reachable a->b :"<<a<<"->"<<b<<endl;
-    
-    cout<<g.reachable(a,b)<<endl;
   } else {
     cout<<0<<endl;
   }
-  
+
 }
 
 void compute_components()
@@ -214,6 +184,7 @@ void compute_components()
 
 int main(int argc , char* argv[])
 {
+  
   //compute_reachablity();
-  compute_components();
+  //compute_components();
 }
