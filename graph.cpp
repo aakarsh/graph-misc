@@ -12,7 +12,7 @@ enum node_color { white, black };
 enum node_visited { visited, visiting, unvisited };
 
 
-const bool debug = true;
+const bool debug = false;
 
 class node {
 
@@ -132,7 +132,8 @@ public:
     dfs_visitor* visit(node* cur) {
       pre_visit(cur);      
       for(node* n : cur->neighbours ) {
-        cout<<"Examne :"<<cur->id<<"->"<<n->id<<" "<<n->visit_state<<endl;
+        if(debug)
+          cout<<"Examine :"<<cur->id<<"->"<<n->id<<" "<<n->visit_state<<endl;
 
         if(n->unvisitedp()) {
           order++;
