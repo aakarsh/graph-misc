@@ -21,7 +21,7 @@ protected:
 
   node_color color;
   vector<node*> neighbours;
-  node_visited visited;
+  node_visited visit_state;
 
 
 public:
@@ -32,31 +32,31 @@ public:
   int post_visit_order = -1;
 
   node(int id, void* ptr): node(id,ptr,white){}
-  node(int id, void* ptr, node_color c): id(id), data(ptr),color(c),visited(unvisited){}
+  node(int id, void* ptr, node_color c): id(id), data(ptr),color(c),visit_state(unvisited){}
   
   friend class graph;
 
   void mark_visting()   {
-    this->visited = visiting;
+    visit_state = visiting;
     if(debug)
       cout<<"visiting:"<< id <<endl;
   }
 
   void mark_unvisited() {
-    this->visited = unvisited;
+    visit_state = unvisited;
   }
 
   void mark_visited()   {
-    this->visited = visited;
-    if(debug) cout<<"done:"<< id<<endl;
+    visit_state = visited;
+    if(debug) cout<<"done:"<< id<<":"<<visit_state<<endl;
   }
 
   static bool sortby_postvisit(const node* n1 , const node* n2){
     return n1->post_visit_order > n2->post_visit_order;
   }
 
-  bool unvisitedp() { return this->visited == unvisited; }
-  bool visitingp()  { return this->visited == visiting; }
+  bool unvisitedp() { return visit_state == unvisited; }
+  bool visitingp()  { return visit_state == visiting; }
 
 };
 
@@ -132,10 +132,12 @@ public:
     dfs_visitor* visit(node* cur) {
       pre_visit(cur);      
       for(node* n : cur->neighbours ) {
+        cout<<"Examne :"<<cur->id<<"->"<<n->id<<" "<<n->visit_state<<endl;
+
         if(n->unvisitedp()) {
           order++;
           visit(n);
-        } else if(n->visitingp()){// back edge
+        } else if(n->visitingp()) {// back edge
           if(debug)
             cout<<"backedge "<<cur->id<<"->"<<n->id<<endl;
           backedges++;          
