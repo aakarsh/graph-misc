@@ -142,9 +142,9 @@ public:
     g->nedges = nedges;
     g->nvertices = nvertices;
 
-    for(int i = 0; i < nvertices; i += 2) {    
+    for(int i = 0; i < 2*nedges; i += 2) {    
       if(debug)
-        cout<<"Adding edge ("<<inputs[i]<<","<<inputs[i+1]<<")"<<endl;
+        cout<<"Adding edge ("<<inputs[i]-1<<","<<inputs[i+1]-1<<")"<<endl;
       
       g->add_mutual_edge(inputs[i]-1,inputs[i+1]-1);      
     }  
@@ -158,15 +158,18 @@ public:
 void compute_reachability()
 {
   graph* g = graph::parse_graph();
+  
   int a,b;  
   cin>>a;
   cin>>b;
+  a--;
+  b--;
 
   if(a < g->nvertices && b < g->nvertices) {
     if(debug) 
-      cout<<"Reachable a->b :"<<a-1<<"->"<<b-1<<endl;
+      cout<<"Reachable a->b :"<<a<<"->"<<b<<endl;
     
-    cout<<g->reachable(a-1,b-1)<<endl;
+    cout<<g->reachable(a,b)<<endl;
     
   } else {
     cout<<0<<endl;
@@ -185,6 +188,6 @@ void compute_components()
 int main(int argc , char* argv[])
 {
   
-  //compute_reachablity();
+  compute_reachability();
   //compute_components();
 }
