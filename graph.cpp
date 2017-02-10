@@ -11,29 +11,23 @@ enum graph_store { adjacency_list , adjacency_matrix } ;
 enum node_color { white, black };
 enum node_visited { visited, visiting, unvisited };
 
-
 const bool debug = false;
 
 class node {
 
 protected:
-
-
   node_color color;
-  vector<node*> neighbours;
   node_visited visit_state;
-
-
 public:
   int id;
   void* data;
-  
   int pre_visit_order = -1;
   int post_visit_order = -1;
 
   node(int id, void* ptr): node(id,ptr,white){}
   node(int id, void* ptr, node_color c): id(id), data(ptr),color(c),visit_state(unvisited){}
-  
+
+
   friend class graph;
 
   void mark_visting()   {
@@ -71,13 +65,17 @@ private:
   graph_store type;
   vector<node*> nodes;
   bool directed = false;
-
+  vector<vector<node*>*> node_adjacency;
+  
 public:
   graph(int n,graph_store st,bool directed): size(n), type(st),directed(directed) {
     switch(st){
     case adjacency_list:
       for(int i = 0 ; i < n ; i++){
         nodes.push_back(new node(i,NULL, white));
+      }
+      for(int i = 0; i < n; i++) {
+        node_adjacency.push_back(new vector<node*>());
       }
       break;
     case adjacency_matrix:
@@ -91,10 +89,11 @@ public:
     nodes[n]->data = data;
   }
 
-  void add_edge(int a, int b) {
-    nodes[a]->neighbours.push_back(nodes[b]);
+  void add_edge(int a, int b) {    
+    node_adjacency[a]->push_back(nodes[b]);
+    
     if(!directed) {
-      nodes[b]->neighbours.push_back(nodes[a]);
+      node_adjacency[b]->push_back(nodes[a]);
     }
   }
 
@@ -106,21 +105,33 @@ public:
     }
   }
 
+  /*
+  graph* reverse_graph(){
+    graph* g = new graph(nvertices,adjacency_list,directed);
+    for(node* n : nodes) {
+      for(node* nb : n->neighbours) {
+        
+      }
+    }
+  }
+  */
 
-  
+
+
   class dfs_visitor {
   private:
-    int backedges = 0;    
+    int backedges = 0;
     int order = 0;
     int components = 0;
   public:
     graph* g;
-    
+
+
     dfs_visitor(graph* g) : g(g){}
 
     dfs_visitor* visit_graph(){
       g->mark_unvisited();
-      for(node*  n : g->nodes){      
+      for(node*  n : g->nodes){
         if(n->unvisitedp()) {
           visit(n);
           components++;
@@ -128,10 +139,10 @@ public:
       }
       return this;
     }
-    
+
     dfs_visitor* visit(node* cur) {
-      pre_visit(cur);      
-      for(node* n : cur->neighbours ) {
+      pre_visit(cur);
+      for(node* n : *(g->node_adjacency[cur->id])) { 
         if(debug)
           cout<<"Examine :"<<cur->id<<"->"<<n->id<<" "<<n->visit_state<<endl;
 
@@ -141,7 +152,7 @@ public:
         } else if(n->visitingp()) {// back edge
           if(debug)
             cout<<"backedge "<<cur->id<<"->"<<n->id<<endl;
-          backedges++;          
+          backedges++;
         }
       }
       post_visit(cur);
@@ -151,21 +162,21 @@ public:
     bool cyclep() {
       return backedges > 0;
     }
-      
+
     int num_components() { return components;  }
     int num_backedges() {  return backedges; }
-    
+
     void post_visit(node* cur){
       cur->mark_visited();
       order++;
       cur->post_visit_order = order;
     }
 
-    void pre_visit(node* cur) { 
+    void pre_visit(node* cur) {
       cur->mark_visting();
       cur->pre_visit_order = order;
     };
-    
+
   };
 
   int reachable(int a, int b) {
@@ -273,14 +284,14 @@ void compute_components()
 void topological_sort(){
   graph *g = graph::parse_graph(true);
   vector<node*> nodes =  g->topological_order();
+
   for (node* n : nodes) {
     cout<<n->id+1;
-    
     if(debug)
       cout<<":"<< (n->pre_visit_order)<<"/"<<(n->post_visit_order);
-    
     cout<< " ";
   }
+
   cout<<endl;
 }
 
@@ -289,7 +300,7 @@ int main(int argc , char* argv[])
   #ifdef RECHABILITY
   compute_reachability();
   #endif
-  
+
   #ifdef COMPONENTS
   compute_components();
   #endif
@@ -297,7 +308,7 @@ int main(int argc , char* argv[])
   #ifdef TOPOLOGICAL
   topological_sort();
   #endif
-  
+
   #ifdef ACYCLIC
   compute_acyclic();
   #endif
