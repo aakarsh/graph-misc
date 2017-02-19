@@ -27,7 +27,6 @@ public:
   node(int id, void* ptr): node(id,ptr,white){}
   node(int id, void* ptr, node_color c): id(id), data(ptr),color(c),visit_state(unvisited){}
 
-
   friend class graph;
 
   void mark_visting()   {
@@ -50,10 +49,9 @@ public:
   }
 
   bool unvisitedp() { return visit_state == unvisited; }
-  bool visitingp()  { return visit_state == visiting; }
+  bool visitingp()  { return visit_state == visiting;  }
 
 };
-
 
 class graph {
 
@@ -66,7 +64,7 @@ private:
   vector<node*> nodes;
   bool directed = false;
   vector<vector<node*>*> node_adjacency;
-  
+
 public:
   graph(int n,graph_store st,bool directed): size(n), type(st),directed(directed) {
     switch(st){
@@ -89,9 +87,10 @@ public:
     nodes[n]->data = data;
   }
 
-  void add_edge(int a, int b) {    
+  void add_edge(int a, int b) {
+
     node_adjacency[a]->push_back(nodes[b]);
-    
+
     if(!directed) {
       node_adjacency[b]->push_back(nodes[a]);
     }
@@ -105,18 +104,24 @@ public:
     }
   }
 
-  /*
-  graph* reverse_graph(){
+  graph* reverse_adjacency_list() {
+
     graph* g = new graph(nvertices,adjacency_list,directed);
-    for(node* n : nodes) {
-      for(node* nb : n->neighbours) {
-        
+
+    vector<node*>* l = new vector<node*>();
+
+    for(int i = 0; i < nvertices;i++) {
+      vector<node*> neigbours  = *(node_adjacency[i]);
+
+      // Reverse Adjacency List for Node with Id
+      for(node* n : neigbours) {
+        g->add_edge(n->id,i);
       }
+
     }
+
+    return g;
   }
-  */
-
-
 
   class dfs_visitor {
   private:
@@ -125,7 +130,6 @@ public:
     int components = 0;
   public:
     graph* g;
-
 
     dfs_visitor(graph* g) : g(g){}
 
@@ -142,7 +146,7 @@ public:
 
     dfs_visitor* visit(node* cur) {
       pre_visit(cur);
-      for(node* n : *(g->node_adjacency[cur->id])) { 
+      for(node* n : *(g->node_adjacency[cur->id])) {
         if(debug)
           cout<<"Examine :"<<cur->id<<"->"<<n->id<<" "<<n->visit_state<<endl;
 
@@ -153,8 +157,10 @@ public:
           if(debug)
             cout<<"backedge "<<cur->id<<"->"<<n->id<<endl;
           backedges++;
+          // look at post-orderings and if the post order u > post order of v cycle
         }
       }
+
       post_visit(cur);
       return this;
     }
@@ -176,7 +182,6 @@ public:
       cur->mark_visting();
       cur->pre_visit_order = order;
     };
-
   };
 
   int reachable(int a, int b) {
@@ -189,6 +194,13 @@ public:
   int count_components() {
     dfs_visitor visitor(this);
     return (visitor.visit_graph())->num_components();
+  }
+
+  int count_strongly_connected()
+  {
+    graph* reverse_graph =  reverse_adjacency_list();
+
+    return 0;
   }
 
   int check_acyclic() {
@@ -240,8 +252,8 @@ public:
     }
     return g;
   }
-};
 
+};
 
 void compute_reachability()
 {
@@ -253,12 +265,10 @@ void compute_reachability()
   a--;
   b--;
 
-  if(a < g->nvertices && b < g->nvertices) {
+  if(a < g->nvertices && gb < g->nvertices) {
     if(debug)
       cout<<"Reachable a->b :"<<a<<"->"<<b<<endl;
-
     cout<<g->reachable(a,b)<<endl;
-
   } else {
     cout<<0<<endl;
   }
@@ -271,7 +281,12 @@ void compute_acyclic(){
   } else{
     cout <<0<<endl;
   }
+}
 
+int compute_strongly_connected(){
+  graph * g = graph::parse_graph(false);
+  cout<<g->count_strongly_connected()<<endl;
+  delete g;
 }
 
 void compute_components()
@@ -312,4 +327,9 @@ int main(int argc , char* argv[])
   #ifdef ACYCLIC
   compute_acyclic();
   #endif
+
+  #ifdef SCC
+  compute_strongly_connected();
+  #endif
+
 }
