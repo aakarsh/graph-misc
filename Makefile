@@ -1,6 +1,6 @@
 FLAGS:=-pipe -O2 -std=c++0x
 
-all:rechability components topological acyclic
+all:scc rechability components topological acyclic
 
 
 rechability: graph.cpp
@@ -15,5 +15,5 @@ topological: graph.cpp
 acyclic: graph.cpp
 	g++  $(FLAGS) graph.cpp -DACYCLIC -lm -o bin/acyclic
 
-
-
+scc: graph.cpp
+	g++  $(FLAGS) graph.cpp -DSCC -lm -o bin/scc	
