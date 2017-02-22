@@ -44,11 +44,12 @@
      (lambda(line)
        (insert (format "%s\n" line)))
      (an/testcase-lines test))
+    (shell-command "touch *")
     (shell-command "make -k")
     (shell-command-on-region
      (point-min)
      (point-max)
-     (format  "%s/%s 2> %s" default-directory
+     (format  "%s/bin/%s 2> %s" default-directory
               (an/testcase-cmd test)
               (format "%s/result-%s.log" default-directory (an/testcase-name test)))
 

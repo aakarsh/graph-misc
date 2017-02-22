@@ -12,3 +12,5 @@ bin/*
 *.tab.c
 obj/*
 gen/*
+*.log
+bin/*

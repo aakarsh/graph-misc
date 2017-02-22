@@ -24,8 +24,7 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
   for(int i = 0 ; i < adj.size() ; i++) {
 
     if(visited[i]) {
-      if(debug)
-        std::cerr<<"Skipping visted "<<i<<std::endl;
+      if(debug) std::cerr<<"skipping visted"<<i<<std::endl;
       continue;
     }
     
@@ -41,15 +40,14 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
     int relax_time = 0;
     
     while(relaxed_an_edge && num_iter < adj.size()  ) {
+      
 
       relaxed_an_edge = false;
 
       num_iter++;
 
-      for(int u  = 0; u < adj.size(); u++) {
-        
-        // u is not reachable
-        if(dist[u] >= max_dist) {
+      for(int u  = 0; u < adj.size(); u++) {        
+        if(dist[u] >= max_dist) { 
           std::cerr<<"Vertex "<<u<<" not reachable"<<std::endl;
           continue;
         }
@@ -58,13 +56,13 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
         vector<int> neighbours  = adj[u];
         
         for(int j = 0 ; j < neighbours.size(); j++) {
-
+          
           int v = neighbours[j];
           int relax_dist =  dist[u] + cost[u][j];
-
+          
           if(debug)
             std::cerr<<num_iter<<"."<<num_relaxations<<" Check Edge: ("<<u<<","<<v<<") ["<<cost[u][j]<<"] dist["<<dist[v]<<"]"<<"] relax["<<relax_dist<<"]"<<std::endl;
-
+          
           // relax edge
           if(dist[v] > relax_dist && dist[u] != max_dist) {
 
@@ -73,7 +71,7 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
             prev[v] = u;
             num_relaxations++;
             relax_time = num_iter;
-
+            
             if(debug)
               std::cerr<<num_iter<<"."<<num_relaxations<<".Relaxing edge: ("<<u<<","<<v<<") ["<<cost[u][j]<<"] dist["<<dist[v]<<"]"<<std::endl;
           }
