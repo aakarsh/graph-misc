@@ -157,16 +157,17 @@
     :ans "0")
 
    (make-an/testcase
-    :name "single-vertex-self-loop"
+    :name "single-vertex-self-loop-1"
     :lines '(
              "10 1"
              "5 5 -1"
              )
     :cmd "./negative_cycle"
     :ans "1")   
-  
+
+
    (make-an/testcase
-    :name "single-vertex-self-loop"
+    :name "single-vertex-self-loop-2"
     :lines '(
              "10 10"
              "6 9 -3"
@@ -179,16 +180,119 @@
              "6 9 -8"
              "7 5 -5"
              "5 6 -4")
-    
+    :cmd "./negative_cycle"
+    :ans "0")
+   
+
+   (make-an/testcase
+    :name "tiny-1"
+    :lines '(
+             "1 1"
+             "1 1 1"
+             )    
     :cmd "./negative_cycle"
     :ans "0")
 
-))
-  
-  ;; (make-an/testcase
-  ;;  :name "random-graph"
-  ;;  :lines (an/random-graph-lines 10 10)
-  ;;  :cmd "./negative_cycle"
-  ;;  :ans "1")
-  
+   (make-an/testcase
+    :name "tiny-2"
+    :lines '(
+             "1 1"
+             "1 1 -1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "1")
+
+   (make-an/testcase
+    :name "tiny-2"
+    :lines '(
+             "2 1"
+             "1 2 -1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+
+
+   (make-an/testcase
+    :name "tiny-3"
+    :lines '(
+             "4 1"
+             "1 2 -1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+
+   (make-an/testcase
+    :name "tiny-4"
+    :lines '(
+             "4 2"
+             "1 2 -1"
+             "2 1 -1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "1")
+
+
+   (make-an/testcase
+    :name "tiny-5"
+    :lines '(
+             "4 2"
+             "1 2 -1"
+             "2 3 -1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+
+
+   (make-an/testcase
+    :name "tiny-6"
+    :lines '(
+             "4 3"
+             "1 2 -1"
+             "2 3 -1"
+             "3 1 1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "1")
+
+
+   (make-an/testcase
+    :name "dc-1"
+    :lines '(
+             "4 3"
+             "1 2 -1"
+             "2 3 -1"
+             "4 4 1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+
+
+   (make-an/testcase
+    :name "dc-1"
+    :lines '(
+             "4 3"
+             "1 2 1"
+             "2 3 1"
+             "4 4 -1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "1")
+
+
+   (make-an/testcase
+    :name "dc-1"
+    :lines '(
+             "4 4"
+             "1 2 1"
+             "2 3 1"
+             "4 3 -1"
+             "4 4 1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+
+
+   
+   ))
+    
   an/testsuites))

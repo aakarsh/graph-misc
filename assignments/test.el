@@ -44,7 +44,7 @@
      (lambda(line)
        (insert (format "%s\n" line)))
      (an/testcase-lines test))
-    (shell-command "make -k")
+;;    (shell-command "make -k")
     (shell-command-on-region
      (point-min)
      (point-max)

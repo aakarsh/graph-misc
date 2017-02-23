@@ -12,7 +12,7 @@ const bool debug = false;
 
 int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
 {
-  
+
   const int max_dist = std::numeric_limits<int>::max();
   std::vector<int> dist = vector<int>(adj.size() , max_dist);
   std::vector<int> prev = vector<int>(adj.size() , -1);
@@ -22,8 +22,9 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
 
   for(int i = 0 ; i < adj.size() ; i++) {
 
-    if(visited[i]) {
-      if(debug) std::cerr<<"skip-vertex:["<<i<<"]"<<std::endl;
+    if(visited[i]) {      
+      if(debug)
+        std::cerr<<"skip-vertex:["<<i<<"]"<<std::endl;      
       continue;
     }
 
@@ -34,21 +35,22 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
     if(debug)
       std::cerr<<"src-vertex:["<<i<<"]"<<std::endl;
 
-    int num_iter = 0;
+    int  num_iter = 0;
     bool relaxed_an_edge = true;
-    int relax_time = 0;
+    int  relax_time = 0;
 
-    while(relaxed_an_edge && num_iter < adj.size()  ) {
+    while(relaxed_an_edge && num_iter < adj.size()) {
 
       relaxed_an_edge = false;
       num_iter++;
 
       for(int u  = 0; u < adj.size(); u++) {
+
         if(dist[u] >= max_dist) {
           std::cerr<<"unreachable-vertex:["<<u<<"]"<<std::endl;
           continue;
         }
-
+        
         visited[u] = true;
         vector<int> neighbours  = adj[u];
 
@@ -64,8 +66,7 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
           }
 
           // relax edge
-          if(dist[v] > relax_dist && dist[u] != max_dist) {
-
+          if(dist[v] > relax_dist ) {
             relaxed_an_edge = true;
             dist[v] = relax_dist;
             prev[v] = u;
@@ -74,19 +75,22 @@ int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost)
 
             if(debug)
               std::cerr<<num_iter<<"."<<num_relaxations<<". relax edge: ("<<u<<","<<v<<") ["<<cost[u][j]<<"] dist["<<dist[v]<<"]"<<std::endl;
+            
           }
         }
       }
     }
 
-    if(relax_time == num_iter && num_iter == adj.size()) {      
+    // negative cycle when we have performed relaxation on v'th iteration
+    if(relax_time == num_iter && num_iter == adj.size()) {
       if(debug){
         std::cerr<<"num-iterations["<<num_iter<<"]"<<std::endl;
         std::cerr<<"num-relaxations["<<num_relaxations<<"]"<<std::endl;
       }
-      
+
       return true;
     }
+
   }
 
   return false;
@@ -104,5 +108,5 @@ int main() {
     adj[x - 1].push_back(y - 1);
     cost[x - 1].push_back(w);
   }
-  std::cout << negative_cycle(adj, cost);
+  std::cout<< negative_cycle(adj, cost);
 }
