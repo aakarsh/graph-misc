@@ -37,24 +37,26 @@
   (if (not found-suite)
       (message "No testsuite [%s] found " name))))
 
+(defun an/lines-to-string(lines)
+  (setq lines  (mapcar (lambda(l) (format "%s \n" l) ) lines))
+  (let ((retval ""))
+    (dolist (line lines)
+      (setq retval (concat  retval line)))
+    retval))
 
-(defun an/run-test(test)
+(defun an/run-test(ytest)
+  (let ((log-file (format "%s/result-%s.log" default-directory (an/testcase-name test)))
+        (cmd (an/testcase-cmd test))
+        (lines (an/testcase-lines test)))
   (with-temp-buffer
-    (mapcar
-     (lambda(line)
-       (insert (format "%s\n" line)))
-     (an/testcase-lines test))
-;;    (shell-command "make -k")
-    (shell-command-on-region
-     (point-min)
-     (point-max)
-     (format  "%s/bin/%s 2> %s" default-directory
-              (an/testcase-cmd test)
-              (format "%s/result-%s.log" default-directory (an/testcase-name test)))
-
+    (insert (an/lines-to-string lines))    
+    (shell-command "make -k")
+    (shell-command-on-region (point-min)  (point-max)
+     (format  "%s/bin/%s 2> %s" default-directory (an/testcase-cmd test)
+              log-file)
      nil t)
-    (buffer-string)))
-
+    (buffer-string))))
+  
 (defun an/run-testsuite(ts)
   (let ((all-passed t)
         (default-directory (an/testsuite-dir ts)))
