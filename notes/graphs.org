@@ -18,7 +18,8 @@
 *** Negative Cycles
 
 ** Week 5
-*** Minimum Spanning Tree
+*** Minimum Spanning Tree <<mst>>
+    
 A [[tree]] which spans every vertex $V$ in graph $G$. Subset of edges $E
 \in G(V,E)$ such that $\sum w(e) \forall e \in E$ is minimum.
 
@@ -41,7 +42,18 @@ A tree is an undirected graph which is connected and acyclic.
 ***** Terminate when all vertices have been added  to the *current tree*
 
 *** Cut Property
+    
+    Let $X \in E$ be a part of a *[[mst]] minimum spaning tree* of $G(V,E)$ such that $S \in V$ and there is
+    no edge between $S$ and $V-S$. and $e \in E$ be the lightest edge between $S$ and $V-S$ then 
+    $e$ this lightest edge is part of the *[[mst]] minimum spanning tree*
+
+
+**** Proof:
+
+     
+    
 *** Kruskal's Algorithm
+    
 *** Prim's Algorithm
 ** Week 6
 *** Bidirectional Dijsktra
