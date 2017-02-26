@@ -65,8 +65,41 @@ A tree is an undirected graph which is connected and acyclic.
             
 *** Kruskal's Algorithm
     
-    1. 
-    
+    1. Repeatedly add to $X$ the next lightest edge that does not create
+       a cycle.
+    2. $X$ starts off as a forest of trees
+
+**** Implementation Details
+     
+     1. Use disjoint sets datastructure.
+     2. Every vertex starts off in disjoint set
+     3. Each set is a vertex of connected components
+     4. If $u$ and $v$ are in disjoint sets adding edge $(u,v)$ will not create a cycle.
+
+#+BEGIN_SRC 
+   1. for all v \in V
+        MakeSet(v)
+   2. X <- {}
+   3. sort edges by weight
+   4. for all {u,v} \in E
+       if Set(u) != Set(v):
+         X <- X + (u,v) 
+         Union(u,v)
+   5. return X {tree}
+#+END_SRC
+
+
+**** Runtime Information
+     
+     O(|E|log(V))
+***** Sorting Edges
+      
+      $O(|E| log(|E|)) => O(|E| log(V))$
+      
+***** Processing Edges      
+      2|E|.T(Find) | + |V| T(Union) 
+      O(|E| log(V))
+      
 *** Prim's Algorithm
 
     
