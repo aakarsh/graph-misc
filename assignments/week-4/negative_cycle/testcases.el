@@ -33,7 +33,7 @@
  (cons
   (make-an/testsuite
    :name "negative_cycle"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-4/negative_cycle"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-4/negative_cycle"
    :testcases
   (list
    

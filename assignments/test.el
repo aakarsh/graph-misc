@@ -6,6 +6,10 @@
 (require 'cl)
 (require 'find-lisp)
 
+(defun an/pwd()
+ (let ((pwd (shell-command-to-string "pwd")))
+   (substring pwd 0 (- (length pwd) 1)))
+ )
 (defun string-ltrim (str)
   (let ((trim-pos (string-match "\\s +$" str)))
     (if trim-pos
@@ -25,6 +29,7 @@
   (let ((testcase-files (find-lisp-find-files default-directory ".*testcases.el$")))
     (setq an/testsuites nil)
     (dolist (f testcase-files)
+      ;; TODO  : Need the capture the current working directory here 
       (load-file f))))
 
 (defun an/run-all-testsuites()
@@ -69,6 +74,8 @@
               log-file)
      nil t)
     (buffer-string))))
+
+
   
 (defun an/run-testsuite(ts)
   (let ((all-passed t)

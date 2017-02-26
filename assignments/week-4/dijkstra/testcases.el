@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "dijkstra"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-4/dijkstra"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-4/dijkstra"
    :testcases
   (list
    (make-an/testcase  

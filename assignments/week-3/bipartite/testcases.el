@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "bipartite"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-3/bipartite"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-3/bipartite"
    :testcases
   (list
    (make-an/testcase  

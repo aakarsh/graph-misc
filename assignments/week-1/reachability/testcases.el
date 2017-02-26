@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "reachability"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-1/reachability"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-1/reachability"
    :testcases
   (list
    (make-an/testcase  

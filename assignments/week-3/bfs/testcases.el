@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "bfs"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-3/bfs"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-3/bfs"
    :testcases
   (list
    (make-an/testcase  

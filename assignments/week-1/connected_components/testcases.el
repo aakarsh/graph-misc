@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "connected_components"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-1/connected_components"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-1/connected_components"
    :testcases
   (list
    (make-an/testcase  

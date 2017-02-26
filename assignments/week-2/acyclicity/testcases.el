@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "acyclicity"
-   :dir "/home/aakarsh/src/c++/graphs/assignments/week-2/acyclicity"
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-2/acyclicity"
    :testcases
   (list
    (make-an/testcase  

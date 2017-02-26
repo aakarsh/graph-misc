@@ -11,7 +11,7 @@ enum visit_state { white, grey ,black };
 int dfs_visit(vector<vector<int> > &adj, vector<int>& visited, vector<int> & post, int x,int & time,int& nback_edges)
 {
   if(debug) 
-    std::cout<<"Visiting:"<<x<<"Time["<<time<<"]"<<std::endl;
+    std::cerr<<"Visiting:"<<x<<"Time["<<time<<"]"<<std::endl;
   
   visited[x]  = grey;
   vector<int> neighbours = adj[x];
@@ -22,12 +22,12 @@ int dfs_visit(vector<vector<int> > &adj, vector<int>& visited, vector<int> & pos
     } else { //visited neighbour
       if(visited[neighbour] == grey) {
         if(debug)
-          std::cout<<"Found predecessor still visiting"<<std::endl;
+          std::cerr<<"Found predecessor still visiting"<<std::endl;
         nback_edges++;
       }      
       else if(post[neighbour] < post[x] ) {
         if(debug)
-          std::cout<<"Found backedge"<<std::endl;
+          std::cerr<<"Found backedge"<<std::endl;
         nback_edges++;
       }
     }
@@ -36,7 +36,7 @@ int dfs_visit(vector<vector<int> > &adj, vector<int>& visited, vector<int> & pos
   visited[x] = black;
   post[x] = time++;      
   if(debug)
-    std::cout<<x<<" done @["<<time<<"]"<<std::endl;
+    std::cerr<<x<<" done @["<<time<<"]"<<std::endl;
     
 }
 
@@ -54,7 +54,7 @@ int acyclic(vector<vector<int> > &adj)
   }
   
   if(debug)
-    std::cout<<"Number of Back Edges:"<<nback_edges<<std::endl;
+    std::cerr<<"Number of Back Edges:"<<nback_edges<<std::endl;
   
   return nback_edges != 0;
 }
@@ -69,7 +69,7 @@ int main() {
     std::cin >> x >> y;
     adj[x - 1].push_back(y - 1);
     if(debug)
-      std::cout<<"Adding edge "<<(x-1)<<"->"<<(y-1)<<std::endl;
+      std::cerr<<"Adding edge "<<(x-1)<<"->"<<(y-1)<<std::endl;
   }
   std::cout << acyclic(adj);
 }
