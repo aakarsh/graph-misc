@@ -27,10 +27,11 @@ A [[tree]] which spans every vertex $V$ in graph $G$. Subset of edges $E
 
 A tree is an undirected graph which is connected and acyclic.
 
-***** Tree Properties 
-****** A tree with $n$ nodes will have $n-1$ endges.
-****** A connected,undirected graph $G(V,E)$ with $|V| -1 $ edges is by definition a tree.
-****** An undirected graph with a *unique path* between any two pairs of vertices is by definition a tree.
+***** Tree Properties
+      
+      1. A tree with $n$ nodes will have $n-1$ endges.
+      2. A connected,undirected graph $G(V,E)$ with $|V| -1 $ edges is by definition a tree.
+      3. An undirected graph with a *unique path* between any two pairs of vertices is by definition a tree.
 
 *** Greedy Algorithms
 **** Kruskal's Algorithm Summary
@@ -49,12 +50,28 @@ A tree is an undirected graph which is connected and acyclic.
     $e$ this lightest edge is part of the *[[mst]] minimum spanning tree*
 
 **** Proof:
-     
-    
+         1. Consider disjoint $S$ and $V-S$ set of vertices.
+         2. Let $e$ be the minum vertex between all vertices between $S$ and $V-S$ such that $e$ is not in the MST.
+         3. Let $e'$ be an edge in the minimum spanning tree containing $S$ and $V-S$
+         4. Since MST is a tree adding an edge  $e$ will create a cycle containing the edges $e$ and $e'$
+         5. Deleting any edge in the cycle will leave the graph connected.
+         6. Since  $w(e) < w(e')$  removing edge $e'$ and adding keeping the edge $e$ will produce a tree 
+            with weight smaller than MST.
+         7. Thus by contradiction $e$ must be in the MST. 
+            
 *** Kruskal's Algorithm
+
+    1. 
+    
     
 *** Prim's Algorithm
+
+    
 ** Week 6
+   
 *** Bidirectional Dijsktra
+    
 *** A* Algorithm
+    
 *** Contraction Algorithms
+    
