@@ -2,7 +2,7 @@
  (cons 
   (make-an/testsuite
    :name "toposort"
-   :dir (pwd)
+   :dir "/home/aakarsh/src/c++/coursera/graphs/assignments/week-2/toposort"
    :testcases
   (list
    (make-an/testcase  

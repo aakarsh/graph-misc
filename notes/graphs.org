@@ -1,16 +1,20 @@
 * Algorithms on Graphs
+  
 ** Week 1
 *** Connectivity
 *** Pre and Post Orderings
+    
 ** Week 2
 *** Directed Graphs
 *** Topological Sorting
 *** Strongly Connected Components
+    
 ** Week 3
 *** Breadth First Search
 *** Proof of Correctness
 *** Shortest Part Trees
 *** Reconstructing Shortest Paths
+    
 ** Week 4
 *** Shortest Path
 *** Dijsktra's Algorithm
@@ -60,9 +64,8 @@ A tree is an undirected graph which is connected and acyclic.
          7. Thus by contradiction $e$ must be in the MST. 
             
 *** Kruskal's Algorithm
-
-    1. 
     
+    1. 
     
 *** Prim's Algorithm
 
