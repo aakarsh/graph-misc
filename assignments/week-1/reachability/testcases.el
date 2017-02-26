@@ -16,7 +16,7 @@
              "1 4")
     
     :cmd "reachability"
-    :ans "0")
+    :ans "1")
 
    (make-an/testcase  
     :name "simple-2"

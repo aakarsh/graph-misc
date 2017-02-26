@@ -1,0 +1,49 @@
+* Algorithms on Graphs
+** Week 1
+*** Connectivity
+*** Pre and Post Orderings
+** Week 2
+*** Directed Graphs
+*** Topological Sorting
+*** Strongly Connected Components
+** Week 3
+*** Breadth First Search
+*** Proof of Correctness
+*** Shortest Part Trees
+*** Reconstructing Shortest Paths
+** Week 4
+*** Shortest Path
+*** Dijsktra's Algorithm
+*** Bellman Ford's algorithm
+*** Negative Cycles
+
+** Week 5
+*** Minimum Spanning Tree
+A [[tree]] which spans every vertex $V$ in graph $G$. Subset of edges $E
+\in G(V,E)$ such that $\sum w(e) \forall e \in E$ is minimum.
+
+**** <<tree>> Tree
+
+A tree is an undirected graph which is connected and acyclic.
+
+***** Tree Properties 
+****** A tree with $n$ nodes will have $n-1$ endges.
+****** A connected,undirected graph $G(V,E)$ with $|V| -1 $ edges is by definition a tree.
+****** An undirected graph with a *unique path* between any two pairs of vertices is by definition a tree.
+
+*** Greedy Algorithms
+**** Kruskal's Algorithm Summary
+***** Repeatedly add the next lightest edge of G(V,E) such that adding the edge does not produce a cycle
+***** Terminate when no more edges can be added to the graph $G$
+      
+**** Prim's Algorithms Summary 
+***** Repeatedly add the new vertex to the *current tree* by the next light edge.
+***** Terminate when all vertices have been added  to the *current tree*
+
+*** Cut Property
+*** Kruskal's Algorithm
+*** Prim's Algorithm
+** Week 6
+*** Bidirectional Dijsktra
+*** A* Algorithm
+*** Contraction Algorithms

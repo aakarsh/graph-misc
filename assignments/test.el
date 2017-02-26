@@ -1,8 +1,11 @@
 (defstruct an/testcase name lines cmd  ans)
 (defstruct an/testsuite name testcases dir)
+
 (defvar an/testsuites '())
+
 (require 'cl)
 (require 'find-lisp)
+
 (defun string-ltrim (str)
   (let ((trim-pos (string-match "\\s +$" str)))
     (if trim-pos

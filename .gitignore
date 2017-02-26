@@ -1,7 +1,6 @@
 *.o
 *~
 G*
-*.org
 TAGS
 uls
 *.out
