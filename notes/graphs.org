@@ -21,8 +21,8 @@
 *** Bellman Ford's algorithm
 *** Negative Cycles
 
-** Week 5
-*** Minimum Spanning Tree <<mst>>
+** Week 5 
+*** Minimum Spanning Tree <<<mst>>>
     
 A [[tree]] which spans every vertex $V$ in graph $G$. Subset of edges $E
 \in G(V,E)$ such that $\sum w(e) \forall e \in E$ is minimum.
@@ -101,7 +101,7 @@ A tree is an undirected graph which is connected and acyclic.
       O(|E| log(V))
       
 *** Prim's Algorithm
-
+    
     
 ** Week 6
    
@@ -110,4 +110,5 @@ A tree is an undirected graph which is connected and acyclic.
 *** A* Algorithm
     
 *** Contraction Algorithms
+    
     

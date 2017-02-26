@@ -7,9 +7,9 @@
 (require 'find-lisp)
 
 (defun an/pwd()
- (let ((pwd (shell-command-to-string "pwd")))
-   (substring pwd 0 (- (length pwd) 1)))
- )
+  (let ((pwd (shell-command-to-string "pwd")))
+    (substring pwd 0 (- (length pwd) 1))))
+
 (defun string-ltrim (str)
   (let ((trim-pos (string-match "\\s +$" str)))
     (if trim-pos
@@ -74,8 +74,6 @@
               log-file)
      nil t)
     (buffer-string))))
-
-
   
 (defun an/run-testsuite(ts)
   (let ((all-passed t)
@@ -102,5 +100,5 @@
           (insert "*ALL TESTS PASSED!*\n")
           (message "All tests passed !"))
       (message "*FAILED %d Tests !!" num-failures)
-      (insert (format "*FAILED* %d Tests !!" num-failures))
-      ))))
+      (insert (format "*FAILED* %d Tests !!" num-failures))))))
+
