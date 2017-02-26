@@ -34,12 +34,13 @@ A tree is an undirected graph which is connected and acyclic.
 
 *** Greedy Algorithms
 **** Kruskal's Algorithm Summary
-***** Repeatedly add the next lightest edge of G(V,E) such that adding the edge does not produce a cycle
-***** Terminate when no more edges can be added to the graph $G$
+     1. Repeatedly add the next lightest edge of G(V,E) such that adding the edge does not produce a cycle
+     2. Terminate when no more edges can be added to the graph $G$
       
-**** Prim's Algorithms Summary 
-***** Repeatedly add the new vertex to the *current tree* by the next light edge.
-***** Terminate when all vertices have been added  to the *current tree*
+**** Prim's Algorithms Summary
+     
+     1. Repeatedly add the new vertex to the *current tree* by the next light edge.
+     2. Terminate when all vertices have been added  to the *current tree*
 
 *** Cut Property
     
@@ -47,9 +48,7 @@ A tree is an undirected graph which is connected and acyclic.
     no edge between $S$ and $V-S$. and $e \in E$ be the lightest edge between $S$ and $V-S$ then 
     $e$ this lightest edge is part of the *[[mst]] minimum spanning tree*
 
-
 **** Proof:
-
      
     
 *** Kruskal's Algorithm
