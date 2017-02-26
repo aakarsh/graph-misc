@@ -40,7 +40,7 @@ int bipartite(vector<vector<int> > &adj) {
         continue;
 
       else if(dist[j] % 2 == 0) {
-        std::cout<<"distance between "<<i<<":"<<j<<"="<<dist[j]<<std::endl;
+        std::cerr<<"distance between "<<i<<":"<<j<<"="<<dist[j]<<std::endl;
         return false;
       }
     }

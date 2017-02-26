@@ -23,7 +23,13 @@
     (dolist (f testcase-files)
       (load-file f))))
 
-(defun an/run-suite()
+(defun an/run-all-testsuites()
+  (interactive)
+  (an/load-suites)
+  (dolist (ts an/testsuites)
+    (an/run-testsuite ts)))
+  
+(defun an/run-testsuites()
   (interactive)
   (an/load-suites)
   (let ((found-suite nil )
@@ -37,6 +43,9 @@
   (if (not found-suite)
       (message "No testsuite [%s] found " name))))
 
+;; convenience
+(global-set-key "\C-ct" 'an/run-testsuites)
+
 (defun an/lines-to-string(lines)
   (setq lines  (mapcar (lambda(l) (format "%s \n" l) ) lines))
   (let ((retval ""))
@@ -44,29 +53,43 @@
       (setq retval (concat  retval line)))
     retval))
 
-(defun an/run-test(ytest)
-  (let ((log-file (format "%s/result-%s.log" default-directory (an/testcase-name test)))
+(defun an/run-test(dir test)
+  (let ((log-file (format "%s/result-%s.log" dir (an/testcase-name test)))
         (cmd (an/testcase-cmd test))
         (lines (an/testcase-lines test)))
   (with-temp-buffer
     (insert (an/lines-to-string lines))    
-    (shell-command "make -k")
+;;    (shell-command (format "$(cd %s; make -k)" dir))
     (shell-command-on-region (point-min)  (point-max)
-     (format  "%s/bin/%s 2> %s" default-directory (an/testcase-cmd test)
+     (format  "%s/bin/%s 2> %s" dir (an/testcase-cmd test)
               log-file)
      nil t)
     (buffer-string))))
   
 (defun an/run-testsuite(ts)
   (let ((all-passed t)
+        (num-failures 0)
         (default-directory (an/testsuite-dir ts)))
+    (with-current-buffer (get-buffer-create (format "*test-results:[%s]*" (an/testsuite-name ts)))
+      (pop-to-buffer (current-buffer))
+      (delete-region (point-min) (point-max))
     (dolist (test (an/testsuite-testcases  ts))
       (let* ((ans (an/testcase-ans test))
-             (result (an/run-test test))
-            (name (an/testcase-name test)))
-        (if (not (equal ans  result))
+             (result (an/run-test (an/testsuite-dir ts) test))
+            (name (an/testcase-name test)))        
+
+        (if (not (equal ans  (string-trim result)))
             (progn
+              (insert "*FAIL* ")
               (message "Failed:%s->[%s] but was [%s]" name ans result)
-              (setq all-passed  nil)))))
+              (incf num-failures)
+              (setq all-passed  nil))
+          (insert "*PASS* "))
+        (insert (format "%-40s %-10s %-10s\n" name ans result))))
     (if all-passed
-        (message "All tests passed !"))))
+        (progn  
+          (insert "*ALL TESTS PASSED!*\n")
+          (message "All tests passed !"))
+      (message "*FAILED %d Tests !!" num-failures)
+      (insert (format "*FAILED* %d Tests !!" num-failures))
+      ))))

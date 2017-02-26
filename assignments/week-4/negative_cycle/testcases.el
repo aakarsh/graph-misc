@@ -36,7 +36,7 @@
    :dir "/home/aakarsh/src/c++/graphs/assignments/week-4/negative_cycle"
    :testcases
   (list
-
+   
    (make-an/testcase
     :name "one-negative-cycle"
     :lines '(
@@ -44,73 +44,74 @@
              "1 2 -5"
              "4 1 2"
              "2 3 2"
-             "3 1 1")
+             "3 1 1"
+             )
     :cmd "./negative_cycle"
     :ans "1")
 
    (make-an/testcase
-    :name "disconnected-graph"
+    :name "dgraph"
     :lines '(
              "5 4"
              "1 2 1"
              "3 4 -1"
              "4 5 -1"
-             "5 3 1")
+             "5 3 1")    
     :cmd "./negative_cycle"
     :ans "1")
 
    (make-an/testcase
-    :name "non-negative-cycle-disconnected-graph-2"
+    :name "non-neg-cyc--dgraph-2"
     :lines '(
              "5 4"
              "1 2 1"
              "3 4 1"
              "4 5 1"
-             "5 3 1")
+             "5 3 1")    
     :cmd "./negative_cycle"
     :ans "0")
 
    (make-an/testcase
-    :name "non-negative-cycle-disconnected-graph-3"
+    :name "non-neg-cyc--dgraph-3"
     :lines '(
              "5 4"
              "1 2 1"
              "3 4 -1"
              "4 5 1"
-             "5 3 1")
+             "5 3 1")    
     :cmd "./negative_cycle"
     :ans "0")
 
    (make-an/testcase
-    :name "non-negative-cycle-disconnected-graph-4"
+    :name "non-neg-cyc--dgraph-4"
     :lines '(
              "5 4"
              "1 2 -1"
              "3 4 -1"
              "4 5 1"
-             "5 3 1")
+             "5 3 1"
+             )
     :cmd "./negative_cycle"
     :ans "0")
 
    (make-an/testcase
-    :name "non-negative-cycle-5"
+    :name "non-neg-cyc--5"
     :lines '(
              "4 5"
              "1 2 1"
              "2 3 1"
              "3 4 1"
              "4 1 1"
-             "2 4 -1")
+             "2 4 -1")    
     :cmd "./negative_cycle"
     :ans "0")
 
    (make-an/testcase
-    :name "non-negative-cycle-6"
+    :name "non-neg-cyc--6"
     :lines '(
              "2 2"
              "1 2 -1"
-             "2 1 1"
-             )
+             "2 1 1")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -119,8 +120,7 @@
     :lines '(
              "2 2"
              "1 2 -1"
-             "2 1 -1"
-             )
+             "2 1 -1")    
     :cmd "./negative_cycle"
     :ans "1")
 
@@ -131,16 +131,14 @@
              "1 2 1"
              "2 1 -1"
              "3 4 -2"
-             "4 3 1"
-             )
+             "4 3 1")    
     :cmd "./negative_cycle"
     :ans "1")
 
    (make-an/testcase
     :name "no-edges-1"
     :lines '(
-             "10 0"
-             )
+             "10 0")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -151,8 +149,7 @@
              "1 2 -1"
              "4 2 -1"
              "3 2 -1"
-             "4 5 -1"
-             )
+             "4 5 -1")
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -160,8 +157,7 @@
     :name "single-vertex-self-loop-1"
     :lines '(
              "10 1"
-             "5 5 -1"
-             )
+             "5 5 -1")    
     :cmd "./negative_cycle"
     :ans "1")
 
@@ -187,8 +183,7 @@
     :name "tiny-1"
     :lines '(
              "1 1"
-             "1 1 1"
-             )
+             "1 1 1")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -196,8 +191,7 @@
     :name "tiny-2"
     :lines '(
              "1 1"
-             "1 1 -1"
-             )
+             "1 1 -1")    
     :cmd "./negative_cycle"
     :ans "1")
 
@@ -205,8 +199,7 @@
     :name "tiny-2"
     :lines '(
              "2 1"
-             "1 2 -1"
-             )
+             "1 2 -1")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -214,8 +207,7 @@
     :name "tiny-3"
     :lines '(
              "4 1"
-             "1 2 -1"
-             )
+             "1 2 -1")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -224,8 +216,7 @@
     :lines '(
              "4 2"
              "1 2 -1"
-             "2 1 -1"
-             )
+             "2 1 -1")    
     :cmd "./negative_cycle"
     :ans "1")
 
@@ -234,8 +225,7 @@
     :lines '(
              "4 2"
              "1 2 -1"
-             "2 3 -1"
-             )
+             "2 3 -1")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -252,12 +242,10 @@
 
    (make-an/testcase
     :name "dc-1"
-    :lines '(
-             "4 3"
+    :lines '("4 3"
              "1 2 -1"
              "2 3 -1"
-             "4 4 1"
-             )
+             "4 4 1")    
     :cmd "./negative_cycle"
     :ans "0")
 
@@ -308,20 +296,46 @@
     :cmd "./negative_cycle"
     :ans "1")
 
+
+
    (make-an/testcase
     :name "foobar-4"
+    :lines '(
+             "4 4"
+             "1 2 -1"
+             "2 3 -1"
+             "4 3 2"
+             "3 4 -2"             
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+   
+   (make-an/testcase
+    :name "foobar-5"
     :lines '(
              "4 4"
              "1 2 1"
              "2 3 1"
              "4 3 -2"
-             "3 4 1"
-             )
+             "3 4 1")    
     :cmd "./negative_cycle"
     :ans "1")
 
 
-   
+   (make-an/testcase
+    :name "foobar-6"
+    :lines '(
+             "5 6"
+             "1 2 -1"
+             "1 3 -1"
+             "2 3 -1"
+             "4 3 -1"
+             "4 5 -1"
+             "5 3 1"
+             )    
+    :cmd "./negative_cycle"
+    :ans "0")
+
    ))
 
   an/testsuites))
