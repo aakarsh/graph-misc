@@ -14,7 +14,7 @@
              "1 0"
              "1 1")
     :cmd "connecting_points"
-    :ans "3.000000000")
+    :ans "3")
 
    (make-an/testcase  
     :name "simple-2"
