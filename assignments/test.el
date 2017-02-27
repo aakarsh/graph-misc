@@ -102,3 +102,10 @@
       (message "*FAILED %d Tests !!" num-failures)
       (insert (format "*FAILED* %d Tests !!" num-failures))))))
 
+
+;; (defun an/dired-copy-to-other-dired()
+;;   (interactive)
+;;   (let ((file (dired-get-file-for-visit)))    
+;;     (with-current-buffer (get-buffer (other-buffer))      
+;;       (dired-copy-file file (dired-current-directory) nil))))
+

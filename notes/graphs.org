@@ -1,31 +1,32 @@
 * Algorithms on Graphs
   
-** Week 1
+** Week-1
 *** Connectivity
 *** Pre and Post Orderings
     
-** Week 2
+** Week-2
 *** Directed Graphs
 *** Topological Sorting
 *** Strongly Connected Components
     
-** Week 3
+** Week-3
 *** Breadth First Search
 *** Proof of Correctness
 *** Shortest Part Trees
 *** Reconstructing Shortest Paths
     
-** Week 4
+** Week-4
 *** Shortest Path
 *** Dijsktra's Algorithm
 *** Bellman Ford's algorithm
 *** Negative Cycles
 
-** Week 5 
+** Week-5 
 *** Minimum Spanning Tree <<<mst>>>
-    
+
 A [[tree]] which spans every vertex $V$ in graph $G$. Subset of edges $E
 \in G(V,E)$ such that $\sum w(e) \forall e \in E$ is minimum.
+
 
 **** <<tree>> Tree
 
@@ -102,10 +103,41 @@ A tree is an undirected graph which is connected and acyclic.
       
 *** Prim's Algorithm
     
+    Very similar to dijkstra's algorithm
     
-** Week 6
+    1. Grow the subtree one edge at a time. 
+    2. Add lightest edge between tree and remaining vertices => *prevents cycles*
+    3. Done when all vertices are added
+       
+**** Prim's Algorithm Implementation
+     
+     #+BEGIN_SRC python
+     for u in vertices(G):
+        cost[u] = inf
+     start = random(u)
+     cost[u] = 0
+     queue = make_priority_queue(zip(V,cost));
+
+     while not queue.empty():
+       (cost,v)  = queue.min();
+       for all (v,z) in edges(v):
+          if queue.contains(v) and cost[z] > w(v,z):
+               cost[z] = w(v,z), parent[z] = v
+               queue.change_priority(z,cost[z])
+      
+     #+END_SRC
+
+**** Prim's Running Time
+     
+     O(|V|.T(min)) + |E|. T(change_priority)
+
+     Using heap T(min) 
+    
+** Week-6
    
 *** Bidirectional Dijsktra
+
+    
     
 *** A* Algorithm
     
