@@ -77,16 +77,17 @@ A tree is an undirected graph which is connected and acyclic.
      3. Each set is a vertex of connected components
      4. If $u$ and $v$ are in disjoint sets adding edge $(u,v)$ will not create a cycle.
 
-#+BEGIN_SRC 
-   1. for all v \in V
-        MakeSet(v)
-   2. X <- {}
-   3. sort edges by weight
-   4. for all {u,v} \in E
+#+BEGIN_SRC python
+   for  v in V:
+      makeset(v)
+
+   X = []
+   sort edges by weight
+   for all (u,v) in E:
        if Set(u) != Set(v):
-         X <- X + (u,v) 
+         X.append((u,v))
          Union(u,v)
-   5. return X {tree}
+   return X 
 #+END_SRC
 
 
