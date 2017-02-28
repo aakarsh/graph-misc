@@ -82,6 +82,9 @@
     (with-current-buffer (get-buffer-create (format "*test-results:[%s]*" (an/testsuite-name ts)))
       (pop-to-buffer (current-buffer))
       (delete-region (point-min) (point-max))
+      (insert "+----------+--------------------------------------------------------------+\n")      
+      (insert (format "|%-10s|%-40s|%-10s|%-10s|\n" "Result" "Name" "Expected" "Result"))
+      (insert "+----------+--------------------------------------------------------------+\n")      
     (dolist (test (an/testsuite-testcases  ts))
       (let* ((ans (an/testcase-ans test))
              (result (an/run-test (an/testsuite-dir ts) test))
@@ -89,14 +92,16 @@
 
         (if (not (equal ans  (string-trim result)))
             (progn
-              (insert "*FAIL* ")
+              (insert (foramt "|%-10s" "*FAIL* "))
               (message "Failed:%s->[%s] but was [%s]" name ans result)
               (incf num-failures)
               (setq all-passed  nil))
-          (insert "*PASS* "))
-        (insert (format "%-40s %-10s %-10s\n" name ans result))))
+          (insert (format "|%-10s" "*PASS* ")))        
+        (insert (format "|%-40s|%-10s|%-10s|\n" name ans result))))
     (if all-passed
-        (progn  
+        (progn
+          (insert "+----------+--------------------------------------------------------------+\n")      
+                
           (insert "*ALL TESTS PASSED!*\n")
           (message "All tests passed !"))
       (message "*FAILED %d Tests !!" num-failures)
@@ -107,5 +112,5 @@
 ;;   (interactive)
 ;;   (let ((file (dired-get-file-for-visit)))    
 ;;     (with-current-buffer (get-buffer (other-buffer))      
-;;       (dired-copy-file file (dired-current-directory) nil))))
+;;       (dired-copy-file file (dired-current-directory) nil))))q
 
