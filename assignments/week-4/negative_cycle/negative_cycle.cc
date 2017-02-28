@@ -10,12 +10,28 @@ const bool debug = true;
 const bool debug = false;
 #endif
 
+void print_cycle(vector<int> & prev , int & relaxed_vertex)
+{
+  std::cerr<<"relaxed-vertex["<<relaxed_vertex<<"]"<<std::endl;
+  if(relaxed_vertex < 0)
+    return;
+  int cur = -1;
+  std::cerr<<"Cycle: ("<<relaxed_vertex;
+  cur = relaxed_vertex;
+  while((cur = prev[cur]) >= 0){
+    if(cur == relaxed_vertex)
+      break;
+    std::cerr<<" "<<cur;
+  }
+  std::cerr<<")"<<std::endl;
+}
+
 /**
  * Iterate through the edge list and relax all relaxable edges
  * returns number of edges relaxed
  */
 int relax_edges(vector<vector<int> > & adj, vector<vector<int> > & cost,
-                vector<int> & dist, vector<int> &visited,vector<int> prev)
+                vector<int> & dist, vector<int> &visited,vector<int> & prev , int & relaxed_vertex)
 {
 
   const int max_dist = std::numeric_limits<int>::max();
@@ -43,6 +59,7 @@ int relax_edges(vector<vector<int> > & adj, vector<vector<int> > & cost,
 
         dist[v] = relax_dist;
         prev[v] = u;
+        relaxed_vertex = v;
         num_relaxations++;
 
         if(debug){
@@ -64,29 +81,33 @@ int negative_cycle(vector<vector<int> > &adj,
                    vector<vector<int> > &cost)
 {
 
+  // Add a virtual vertex connected to every vertex in the source graph
+  for(int i = 0; i < adj.size() -1 ; i++){
+    adj[adj.size()-1].push_back(i);
+    cost[adj.size()-1].push_back(0);
+  }
+
+  // add a virtual node and link it to all vertices
   const int max_dist = std::numeric_limits<int>::max();
   std::vector<int> dist = vector<int>(adj.size() , max_dist);
   std::vector<int> prev = vector<int>(adj.size() , -1);
   std::vector<int> visited = vector<int>(adj.size() , false);
 
-  for(int i = 0 ; i < adj.size() ; i++) {
+  for(int k = 0 ; k < dist.size(); k++) {
+    dist[k] = max_dist;
+  }
 
-    if(visited[i]) {
-      if(debug)
-        std::cerr<<"skip-vertex:["<<i<<"]"<<std::endl;
-      continue;
-    }
+  int src = adj.size() - 1;
 
-    for(int k = 0 ; k < dist.size(); k++) {
-      dist[k] = (k == i) ? 0 : max_dist;
-    }
+  dist[adj.size()-1] = 0;
 
-    if(debug)
-      std::cerr<<"src-vertex:["<< i <<"]-"<<std::endl;
+  if(debug)
+    std::cerr<<"src-vertex:["<< src <<"]-"<<std::endl;
 
     int num_iter = 0;
+    int relaxed_vertex = -1;
 
-    while( relax_edges(adj,cost,dist,visited,prev) > 0  &&  num_iter < adj.size())
+    while(relax_edges(adj,cost,dist,visited,prev,relaxed_vertex) > 0  &&  num_iter < adj.size())
       num_iter++;
 
     std::cerr<<"num-iteration:["<<num_iter<<"]"<<std::endl;
@@ -95,20 +116,19 @@ int negative_cycle(vector<vector<int> > &adj,
     // performed relaxation on v'th iteration
 
     if( num_iter == adj.size()) {
-      int num_relaxations  = relax_edges(adj,cost,dist,visited,prev);
-
-      if(debug)
-        std::cerr<<"num-relaxations@["<<num_iter<<"]"<<"["<<num_relaxations<<"]"<<std::endl;
+      int relaxed_vertex = -1;
+      int num_relaxations  = relax_edges(adj,cost,dist,visited,prev,relaxed_vertex);
 
       if( num_relaxations > 0) {
         if(debug) {
+          print_cycle(prev,relaxed_vertex);
           std::cerr<<"num-iterations["<<num_iter<<"]"<<std::endl;
           std::cerr<<"num-relaxations["<<num_relaxations<<"]"<<std::endl;
         }
         return true;
       }
     }
-  }
+
   return false;
 }
 
@@ -116,8 +136,8 @@ int negative_cycle(vector<vector<int> > &adj,
 int main() {
   int n, m;
   std::cin >> n >> m;
-  vector<vector<int> > adj(n, vector<int>());
-  vector<vector<int> > cost(n, vector<int>());
+  vector<vector<int> > adj(n+1, vector<int>());
+  vector<vector<int> > cost(n+1, vector<int>());
   for (int i = 0; i < m; i++) {
     int x, y, w;
     std::cin >> x >> y >> w;
